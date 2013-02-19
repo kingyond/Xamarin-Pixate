@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="MonoTouch-Pixate : " />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>MonoTouch-Pixate</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/Pixate/MonoTouch-Pixate">View on GitHub</a>
+
+          <h1 id="project_title">MonoTouch-Pixate</h1>
+          <h2 id="project_tagline"></h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/Pixate/MonoTouch-Pixate/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/Pixate/MonoTouch-Pixate/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>MonoTouch-Pixate</h1>
+
+<p>To demonstrate the use of Pixate within MonoTouch, we'll be using Xamarin's MonoDevelop IDE. Let's get started by creating a new solution. We'll start with creating a C# -&gt; MonoTouch -&gt; Single View Application solution:</p>
+
+<p><img src="https://raw.github.com/Pixate/MonoTouch-Pixate/master/Screenshots/single_view_application.png" alt="Single View Application"></p>
+
+<p>Name your project and click 'OK'.</p>
+
+<h2>Adding the Pixate Library</h2>
+
+<p>Now right-click on your project's References folder in the Solution view and select 'Edit References...'.</p>
+
+<p><img src="https://raw.github.com/Pixate/MonoTouch-Pixate/master/Screenshots/edit_reference.png" alt="Add Native Ref"></p>
+
+<p>Now add the <code>Pixate.dll</code> file that you can <a href="http://www.pixate.com/prerelease/engine/ios/PixateDLL-1.0RC3.zip">download from here</a> if you don't already have it.  You can also <a href="#pixatedll-build-instructions">build the DLL</a> yourself.</p>
+
+<p>The dialog should look something like this:</p>
+
+<p><img src="https://raw.github.com/Pixate/MonoTouch-Pixate/master/Screenshots/add_pixate_dll.png" alt="Add Native Ref"></p>
+
+<h2>Adding a CSS File</h2>
+
+<p>Now right-click on your project again in the Solution view and select Add -&gt; New File. Choose 'Misc' from the list on the left, and 'Empty Text File' from the list in the middle. Name your file 'default.css'.</p>
+
+<p><img src="https://raw.github.com/Pixate/MonoTouch-Pixate/master/Screenshots/add_css_file.png" alt="Add CSS File"></p>
+
+<p>Right-click on the <code>default.css</code> file you added and select the 'Properties' menu item. Over on the Properties panel, change 'Build action' to be 'Content'.</p>
+
+<p><img src="https://raw.github.com/Pixate/MonoTouch-Pixate/master/Screenshots/default_to_content.png" alt="Default to Content"></p>
+
+<h2>Setting up for Styling</h2>
+
+<p>At this point, let's add a button or two to our application. Double-click on the .xib file for your project (e.g. ViewController.xib). Add a couple of buttons like the following:</p>
+
+<p><img src="https://raw.github.com/Pixate/MonoTouch-Pixate/master/Screenshots/two_buttons.png" alt="Two Buttons"></p>
+
+<p>With each of the new buttons you added, select one, activate the Identity Inspector in the Utilities View. </p>
+
+<p>Now we need to give the buttons a "styleId" so that you can reference it from your CSS. We'll add a Runtime Attribute. Click the small '+' and add an entry with a key path of <code>styleId</code>, a type of <code>String</code>, and a value of <code>button1</code>. For the second button add a <code>styleId</code>, a type of <code>String</code>, and a value of <code>button2</code>.</p>
+
+<p><img src="https://raw.github.com/Pixate/MonoTouch-Pixate/master/Screenshots/styleId.png" alt="Runtime Attribute"></p>
+
+<p>Now save and close Xcode. </p>
+
+<h2>Set up the Pixate license</h2>
+
+<p>At the top of your Main.cs file, add this import line:</p>
+
+<div class="highlight"><pre>    <span class="k">using</span> <span class="nn">PixateLib</span><span class="p">;</span>
+</pre></div>
+
+<p>Then, at the beginning of your Main method, add this line:</p>
+
+<div class="highlight"><pre>    <span class="n">PXEngine</span><span class="p">.</span><span class="n">LicenseKeyForUser</span><span class="p">(</span><span class="s">"SERIAL NUMBER"</span><span class="p">,</span> <span class="s">"USER NAME"</span><span class="p">);</span>
+</pre></div>
+
+<p>Be sure to replace <em>SERIAL NUMBER</em> and <em>USER NAME</em> with your licensing information. If you do not have a license and wish to run in free mode, you will still need this line of code. Simply replace <em>SERIAL NUMBER</em> and <em>USER NAME</em> with empty strings.</p>
+
+<p>Before we style the buttons, go ahead and run the project in MonoDevelop. It should look something like this:</p>
+
+<p><img src="https://raw.github.com/Pixate/MonoTouch-Pixate/master/Screenshots/buttons_run.png" alt="Buttons Runs"></p>
+
+<h2>Styling the Buttons</h2>
+
+<p>Now comes the easy part, just open your default.css file and add some CSS. For our two buttons, let's try something simple:</p>
+
+<div class="highlight"><pre>    <span class="nf">#button1</span> <span class="p">{</span>
+        <span class="k">background-color</span> <span class="o">:</span> <span class="nb">yellow</span><span class="p">;</span>
+        <span class="k">border-width</span>     <span class="o">:</span> <span class="m">2px</span><span class="p">;</span>
+        <span class="k">border-color</span>     <span class="o">:</span> <span class="nb">black</span><span class="p">;</span>
+        <span class="k">border</span><span class="o">-</span><span class="n">radius</span>    <span class="o">:</span> <span class="m">8px</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nf">#button2</span> <span class="p">{</span>
+        <span class="k">background-color</span> <span class="o">:</span> <span class="nb">gray</span><span class="p">;</span>
+        <span class="k">border-width</span>     <span class="o">:</span> <span class="m">2px</span><span class="p">;</span>
+        <span class="k">border-color</span>     <span class="o">:</span> <span class="nb">black</span><span class="p">;</span>
+        <span class="k">border</span><span class="o">-</span><span class="n">radius</span>    <span class="o">:</span> <span class="m">8px</span><span class="p">;</span>
+    <span class="p">}</span>
+</pre></div>
+
+<h2>First Styled App</h2>
+
+<p>Now Run your project. Your buttons should look like this:</p>
+
+<p><img src="https://raw.github.com/Pixate/MonoTouch-Pixate/master/Screenshots/styled_buttons.png" alt="Styled Buttons"></p>
+
+<p>Here's some slightly fancier styling you can try:</p>
+
+<div class="highlight"><pre>    <span class="nf">#button1</span> <span class="p">{</span>
+      <span class="k">border</span><span class="o">-</span><span class="n">radius</span>    <span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
+      <span class="k">font-family</span>      <span class="o">:</span> <span class="s2">"American Typewriter"</span><span class="p">;</span>
+      <span class="k">font-size</span>        <span class="o">:</span> <span class="m">13px</span><span class="p">;</span>
+      <span class="k">font-weight</span>      <span class="o">:</span> <span class="k">bold</span><span class="p">;</span>
+      <span class="k">text-transform</span>   <span class="o">:</span> <span class="k">uppercase</span><span class="p">;</span>
+      <span class="k">letter-spacing</span>   <span class="o">:</span> <span class="m">0.75px</span><span class="p">;</span>
+      <span class="k">color</span>            <span class="o">:</span> <span class="m">#ffffff</span><span class="p">;</span>
+      <span class="k">background-color</span> <span class="o">:</span> <span class="m">#008ed4</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nf">#button2</span> <span class="p">{</span>
+      <span class="k">color</span>            <span class="o">:</span> <span class="m">#446620</span><span class="p">;</span>
+      <span class="k">background-color</span> <span class="o">:</span> <span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="m">#87c44a</span><span class="o">,</span> <span class="m">#b4da77</span><span class="p">);</span>
+      <span class="k">border-width</span>     <span class="o">:</span> <span class="m">1px</span><span class="p">;</span>
+      <span class="k">border-color</span>     <span class="o">:</span> <span class="m">#84a254</span><span class="p">;</span>
+      <span class="k">border</span><span class="o">-</span><span class="n">radius</span>    <span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+      <span class="k">font-size</span>        <span class="o">:</span> <span class="m">13px</span><span class="p">;</span>
+    <span class="p">}</span>
+</pre></div>
+
+<p>Now you'll get pretty buttons like this:</p>
+
+<p><img src="https://raw.github.com/Pixate/MonoTouch-Pixate/master/Screenshots/pretty_buttons.png" alt="Pretty Buttons"></p>
+
+<h2>Coding Your UI</h2>
+
+<p>If you programmatically create your UI, this library [*will soon*] support the full API from the <a href="http://www.pixate.com/documentation.html">Pixate Dev Reference</a>. In addition, the following three methods are provided to set ID, Class, and CSS on your controls/views:</p>
+
+<div class="highlight"><pre>    <span class="n">view</span><span class="p">.</span><span class="n">SetStyleId</span><span class="p">(</span><span class="s">"StyleID"</span><span class="p">);</span>
+    <span class="n">view</span><span class="p">.</span><span class="n">SetStyleClass</span><span class="p">(</span><span class="s">"StyleClass"</span><span class="p">);</span>
+    <span class="n">view</span><span class="p">.</span><span class="n">SetStyleCSS</span><span class="p">(</span><span class="s">"StyleCSS"</span><span class="p">);</span>
+</pre></div>
+
+<p>For example, here's some code that creates 3 buttons, each with a unique ID, all three with the same Class, and the third styled inline with CSS:</p>
+
+<div class="highlight"><pre>    <span class="n">button1</span> <span class="p">=</span> <span class="n">UIButton</span><span class="p">.</span><span class="n">FromType</span><span class="p">(</span><span class="n">UIButtonType</span><span class="p">.</span><span class="n">RoundedRect</span><span class="p">);</span>
+    <span class="n">button1</span><span class="p">.</span><span class="n">Frame</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RectangleF</span><span class="p">(</span><span class="m">50</span><span class="p">,</span> <span class="m">20</span><span class="p">,</span> <span class="m">200</span><span class="p">,</span> <span class="m">40</span><span class="p">);</span>
+    <span class="n">button1</span><span class="p">.</span><span class="n">SetTitle</span><span class="p">(</span><span class="s">"#myButton1 .allButtons"</span><span class="p">,</span> <span class="n">UIControlState</span><span class="p">.</span><span class="n">Normal</span><span class="p">);</span>
+    <span class="n">button1</span><span class="p">.</span><span class="n">SetStyleId</span><span class="p">(</span><span class="s">"myButton1"</span><span class="p">);</span>
+    <span class="n">button1</span><span class="p">.</span><span class="n">SetStyleClass</span><span class="p">(</span><span class="s">"allButtons"</span><span class="p">);</span>
+
+    <span class="n">button2</span> <span class="p">=</span> <span class="n">UIButton</span><span class="p">.</span><span class="n">FromType</span><span class="p">(</span><span class="n">UIButtonType</span><span class="p">.</span><span class="n">RoundedRect</span><span class="p">);</span>
+    <span class="n">button2</span><span class="p">.</span><span class="n">Frame</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RectangleF</span><span class="p">(</span><span class="m">50</span><span class="p">,</span> <span class="m">70</span><span class="p">,</span> <span class="m">200</span><span class="p">,</span> <span class="m">40</span><span class="p">);</span>
+    <span class="n">button2</span><span class="p">.</span><span class="n">SetTitle</span><span class="p">(</span><span class="s">"#myButton2 .allButtons"</span><span class="p">,</span> <span class="n">UIControlState</span><span class="p">.</span><span class="n">Normal</span><span class="p">);</span>
+    <span class="n">button2</span><span class="p">.</span><span class="n">SetStyleId</span><span class="p">(</span><span class="s">"myButton2"</span><span class="p">);</span>
+    <span class="n">button2</span><span class="p">.</span><span class="n">SetStyleClass</span><span class="p">(</span><span class="s">"allButtons"</span><span class="p">);</span>
+
+    <span class="n">button3</span> <span class="p">=</span> <span class="n">UIButton</span><span class="p">.</span><span class="n">FromType</span><span class="p">(</span><span class="n">UIButtonType</span><span class="p">.</span><span class="n">RoundedRect</span><span class="p">);</span>
+    <span class="n">button3</span><span class="p">.</span><span class="n">Frame</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RectangleF</span><span class="p">(</span><span class="m">50</span><span class="p">,</span> <span class="m">120</span><span class="p">,</span> <span class="m">200</span><span class="p">,</span> <span class="m">40</span><span class="p">);</span>
+    <span class="n">button3</span><span class="p">.</span><span class="n">SetTitle</span><span class="p">(</span><span class="s">"#myButton3 .allButtons"</span><span class="p">,</span> <span class="n">UIControlState</span><span class="p">.</span><span class="n">Normal</span><span class="p">);</span>
+    <span class="n">button3</span><span class="p">.</span><span class="n">SetStyleId</span><span class="p">(</span><span class="s">"myButton3"</span><span class="p">);</span>
+    <span class="n">button3</span><span class="p">.</span><span class="n">SetStyleClass</span><span class="p">(</span><span class="s">"allButtons"</span><span class="p">);</span>
+
+    <span class="n">button3</span><span class="p">.</span><span class="n">SetStyleCSS</span><span class="p">(</span><span class="s">"background-color: green; border-radius: 5;"</span><span class="p">);</span>
+</pre></div>
+
+<p>The CSS for these three buttons could be:</p>
+
+<div class="highlight"><pre>    <span class="nc">.allButtons</span> <span class="p">{</span>
+     <span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">5</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nf">#myButton1</span> <span class="p">{</span>
+     <span class="k">background-color</span><span class="o">:</span> <span class="nb">yellow</span><span class="p">;</span>
+     <span class="k">border-color</span><span class="o">:</span> <span class="nb">black</span><span class="p">;</span>
+     <span class="k">border-width</span><span class="o">:</span> <span class="m">2</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nf">#myButton2</span> <span class="p">{</span>
+     <span class="k">background-color</span><span class="o">:</span> <span class="nb">blue</span><span class="p">;</span>
+     <span class="k">border-color</span><span class="o">:</span> <span class="nb">yellow</span><span class="p">;</span>
+     <span class="k">border-width</span><span class="o">:</span> <span class="m">2</span><span class="p">;</span>
+    <span class="p">}</span>
+
+</pre></div>
+
+<p>And you would get something like this:</p>
+
+<p><img src="https://raw.github.com/Pixate/MonoTouch-Pixate/master/Screenshots/monotouch-sample1.png" alt=""></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">MonoTouch-Pixate maintained by <a href="https://github.com/Pixate">Pixate</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>

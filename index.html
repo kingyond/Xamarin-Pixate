@@ -34,7 +34,7 @@
         <h1>
 <a name="monotouch-pixate" class="anchor" href="#monotouch-pixate"><span class="octicon octicon-link"></span></a>MonoTouch-Pixate</h1>
 
-<p>To demonstrate the use of Pixate within MonoTouch, we'll be using Xamarin's MonoDevelop IDE. Let's get started by creating a new solution. We'll start with creating a C# -&gt; MonoTouch -&gt; Single View Application solution:</p>
+<p>To demonstrate the use of Pixate 1.1 (beta 4 or later) within MonoTouch, we'll be using Xamarin's MonoDevelop IDE. Let's get started by creating a new solution. We'll start with creating a C# -&gt; MonoTouch -&gt; Single View Application solution:</p>
 
 <p><img src="https://raw.github.com/Pixate/MonoTouch-Pixate/master/Screenshots/single_view_application.png" alt="Single View Application"></p>
 
@@ -82,7 +82,7 @@
 <h2>
 <a name="set-up-the-pixate-license" class="anchor" href="#set-up-the-pixate-license"><span class="octicon octicon-link"></span></a>Set up the Pixate license</h2>
 
-<p>At the top of your Main.cs file, add this import line:</p>
+<p>At the top of your <em>Main.cs</em> file, add this import line:</p>
 
 <div class="highlight"><pre>    <span class="k">using</span> <span class="nn">PixateLib</span><span class="p">;</span>
 </pre></div>
@@ -93,6 +93,13 @@
 </pre></div>
 
 <p>Be sure to replace <em>SERIAL NUMBER</em> and <em>USER NAME</em> with your licensing information. If you do not have a license and wish to run in free mode, you will still need this line of code. Simply replace <em>SERIAL NUMBER</em> and <em>USER NAME</em> with empty strings.</p>
+
+<p>In your <em>AppDelegate.cs</em> file, in your <em>FinishedLaunching</em> method, anywhere <em>after</em> you have created your window but <em>before</em> you call MakeKeyAndVisible(), add the following:</p>
+
+<div class="highlight"><pre>    <span class="n">window</span><span class="p">.</span><span class="n">SetStyleMode</span> <span class="p">(</span><span class="n">PXStylingMode</span><span class="p">.</span><span class="n">PXStylingNormal</span><span class="p">);</span>
+</pre></div>
+
+<p>This tells the root window to style all of its subviews.</p>
 
 <p>Before we style the buttons, go ahead and run the project in MonoDevelop. It should look something like this:</p>
 
@@ -108,12 +115,14 @@
         <span class="k">border-width</span>     <span class="o">:</span> <span class="m">2px</span><span class="p">;</span>
         <span class="k">border-color</span>     <span class="o">:</span> <span class="nb">black</span><span class="p">;</span>
         <span class="k">border</span><span class="o">-</span><span class="n">radius</span>    <span class="o">:</span> <span class="m">8px</span><span class="p">;</span>
+        <span class="k">border-style</span>     <span class="o">:</span> <span class="k">solid</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="nf">#button2</span> <span class="p">{</span>
         <span class="k">background-color</span> <span class="o">:</span> <span class="nb">gray</span><span class="p">;</span>
         <span class="k">border-width</span>     <span class="o">:</span> <span class="m">2px</span><span class="p">;</span>
         <span class="k">border-color</span>     <span class="o">:</span> <span class="nb">black</span><span class="p">;</span>
         <span class="k">border</span><span class="o">-</span><span class="n">radius</span>    <span class="o">:</span> <span class="m">8px</span><span class="p">;</span>
+        <span class="k">border-style</span>     <span class="o">:</span> <span class="k">solid</span><span class="p">;</span>
     <span class="p">}</span>
 </pre></div>
 
@@ -141,6 +150,7 @@
       <span class="k">background-color</span> <span class="o">:</span> <span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="m">#87c44a</span><span class="o">,</span> <span class="m">#b4da77</span><span class="p">);</span>
       <span class="k">border-width</span>     <span class="o">:</span> <span class="m">1px</span><span class="p">;</span>
       <span class="k">border-color</span>     <span class="o">:</span> <span class="m">#84a254</span><span class="p">;</span>
+      <span class="k">border-style</span>     <span class="o">:</span> <span class="k">solid</span><span class="p">;</span>
       <span class="k">border</span><span class="o">-</span><span class="n">radius</span>    <span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
       <span class="k">font-size</span>        <span class="o">:</span> <span class="m">13px</span><span class="p">;</span>
     <span class="p">}</span>
@@ -193,12 +203,14 @@
      <span class="k">background-color</span><span class="o">:</span> <span class="nb">yellow</span><span class="p">;</span>
      <span class="k">border-color</span><span class="o">:</span> <span class="nb">black</span><span class="p">;</span>
      <span class="k">border-width</span><span class="o">:</span> <span class="m">2</span><span class="p">;</span>
+     <span class="k">border-style</span><span class="o">:</span> <span class="k">solid</span><span class="p">;</span>
     <span class="p">}</span>
 
     <span class="nf">#myButton2</span> <span class="p">{</span>
      <span class="k">background-color</span><span class="o">:</span> <span class="nb">blue</span><span class="p">;</span>
      <span class="k">border-color</span><span class="o">:</span> <span class="nb">yellow</span><span class="p">;</span>
      <span class="k">border-width</span><span class="o">:</span> <span class="m">2</span><span class="p">;</span>
+     <span class="k">border-style</span><span class="o">:</span> <span class="k">solid</span><span class="p">;</span>
     <span class="p">}</span>
 
 </pre></div>
@@ -206,6 +218,24 @@
 <p>And you would get something like this:</p>
 
 <p><img src="https://raw.github.com/Pixate/MonoTouch-Pixate/master/Screenshots/monotouch-sample1.png" alt=""></p>
+
+<h2>
+<a name="making-changes-in-real-time" class="anchor" href="#making-changes-in-real-time"><span class="octicon octicon-link"></span></a>Making changes in real-time</h2>
+
+<p>To turn on real-time monitoring of your CSS for live editing, first you'll need to turn on file monitoring in your AppDelegate, anywhere in the FinishedLaunching method. Add the following:</p>
+
+<div class="highlight"><pre>    <span class="n">PXEngine</span><span class="p">.</span><span class="n">CurrentApplicationStylesheet</span><span class="p">().</span><span class="n">MonitorChanges</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+</pre></div>
+
+<p>You may want to print out the location of the CSS file Pixate is using so you can edit it (by default your default.css will be loaded out of your app's resources). Use the following to get the temporary CSS file location:</p>
+
+<div class="highlight"><pre>    <span class="kt">string</span> <span class="n">path</span> <span class="p">=</span> <span class="n">PXEngine</span><span class="p">.</span><span class="n">CurrentApplicationStylesheet</span><span class="p">().</span><span class="n">FilePath</span><span class="p">;</span>
+</pre></div>
+
+<p>You'll want to print this location out to the console and then edit it. Be sure to save your changes to another file before you run your app again, otherwise your changes will be overwritten. Alternetaively, you can load your CSS from a location on your file system during development (i.e. a DropBox folder) to easier editing: </p>
+
+<div class="highlight"><pre>    <span class="n">PXEngine</span><span class="p">.</span><span class="n">StyleSheetFromFilePathWithOrigin</span><span class="p">(</span><span class="s">"/some/path/myStyle.css"</span><span class="p">,</span> <span class="n">PXStylesheetOrigin</span><span class="p">.</span><span class="n">PXStylesheetOriginApplication</span><span class="p">);</span>
+</pre></div>
 
 <h2>
 <a name="pixatedll-build-instructions" class="anchor" href="#pixatedll-build-instructions"><span class="octicon octicon-link"></span></a>Pixate.dll Build Instructions</h2>
